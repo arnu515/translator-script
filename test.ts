@@ -16,12 +16,12 @@ Deno.test("Check translation: French", {
   permissions: { read: true, write: true },
 }, async () => {
   Deno.writeFileSync(
-    "test.json",
+    "lang/test.json",
     new TextEncoder().encode(JSON.stringify({ one: "man", two: "woman" })),
   );
-  await runProgram("test.json", "fr");
+  await runProgram("lang/test.json", "fr");
   const content = JSON.parse(
-    new TextDecoder("utf-8").decode(Deno.readFileSync("fr.json")),
+    new TextDecoder("utf-8").decode(Deno.readFileSync("lang/fr.json")),
   );
 
   assertEquals(typeof content, "object");
@@ -33,12 +33,12 @@ Deno.test("Check translation: Hindi", {
   permissions: { read: true, write: true },
 }, async () => {
   Deno.writeFileSync(
-    "test.json",
+    "lang/test.json",
     new TextEncoder().encode(JSON.stringify({ one: "man", two: "woman" })),
   );
-  await runProgram("test.json", "fr");
+  await runProgram("lang/test.json", "hi");
   const content = JSON.parse(
-    new TextDecoder("utf-8").decode(Deno.readFileSync("hi.json")),
+    new TextDecoder("utf-8").decode(Deno.readFileSync("lang/hi.json")),
   );
 
   assertEquals(typeof content, "object");
