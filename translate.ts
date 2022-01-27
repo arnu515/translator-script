@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-explicit-any
+
 const LIBRETRANSLATE_URL = Deno.env.get("LIBRETRANSLATE_URL") ||
   "https://libretranslate.de";
 const LIBRETRANSLATE_KEY = Deno.env.get("LIBRETRANSLATE_KEY") || undefined;
