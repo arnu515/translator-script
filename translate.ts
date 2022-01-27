@@ -1,5 +1,3 @@
-import * as dansi from "https://deno.land/x/dansi@0.1.0/mod.ts";
-
 const LIBRETRANSLATE_URL = Deno.env.get("LIBRETRANSLATE_URL") ||
   "https://libretranslate.de";
 const LIBRETRANSLATE_KEY = Deno.env.get("LIBRETRANSLATE_KEY") || undefined;
@@ -10,12 +8,12 @@ if (isNaN(RATELIMIT)) RATELIMIT = 0;
 
 export async function translate(word: string, target: string): Promise<string> {
   if (RATELIMIT !== 0 && translatedTimes >= RATELIMIT) {
-    console.log(dansi.red("Rate limited. Waiting for one minute to pass..."));
+    console.log("Rate limited. Waiting for one minute to pass...");
     const time = Date.now();
     while (Date.now() - time < 60 * 1000) {
       // Waiting...
     }
-    console.log(dansi.yellow("One minute has passed, continuing..."));
+    console.log("One minute has passed, continuing...");
     translatedTimes = 0;
   }
 
@@ -40,13 +38,11 @@ export async function translate(word: string, target: string): Promise<string> {
   }
   const data = await res.json();
   if (data.error) {
-    console.log(dansi.red("ERROR: " + data.error));
+    console.log("ERROR: " + data.error);
     Deno.exit(1);
   } else {
     console.log(
-      `Translated ${dansi.cyan(word)} to ${dansi.bold(dansi.yellow(target))}: ${
-        dansi.bold(dansi.cyan(data.translatedText))
-      }`,
+      `Translated ${word} to ${target}: ${data.translatedText}`,
     );
     return data.translatedText;
   }
